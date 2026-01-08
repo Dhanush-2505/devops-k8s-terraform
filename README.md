@@ -120,6 +120,34 @@ Add monitoring with Prometheus and Grafana
 Integrate container image security scanning
 
 Implement Ingress instead of LoadBalancer
+**
+### CI/CD Pipeline Execution Note**
+
+The GitHub Actions workflow is fully configured to build, push, and deploy
+the application to Amazon EKS.
+
+AWS credentials are intentionally not enabled in the public repository to
+prevent unintended cloud resource creation and associated costs.
+
+Once valid AWS credentials are provided via GitHub Actions Secrets, the
+pipeline will execute successfully and automatically deploy the application
+to the Kubernetes cluster.
+
+## Proof of Deployment
+
+### Terraform – EKS Cluster Creation
+![Terraform Apply](screenshots/terraform_apply_succes.jpeg)
+
+### Kubernetes Pods
+![Kubectl Pods](screenshots/kubectl_svc_pods.jpeg)
+
+### Kubernetes Service (LoadBalancer)
+![Kubectl Service](screenshots/kubectl_service.jpeg)
+
+### Live Application
+![Application Running](screenshots/app_browser.jpeg)
+
+
 
 Conclusion
 This project demonstrates a complete, automated Kubernetes deployment pipeline using industry-standard DevOps tools and practices. The setup is reproducible, scalable, and suitable for production environments with minimal modifications.
