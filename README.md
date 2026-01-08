@@ -27,7 +27,7 @@ application to the Kubernetes cluster.
 ---
 
 ## Project Structure
-.
+
 ├── app/ # Hello World web application
 ├── docker/ # Dockerfile for containerization
 ├── k8s/ # Kubernetes manifests (Deployment, Service)
@@ -35,12 +35,9 @@ application to the Kubernetes cluster.
 ├── .github/workflows/ # GitHub Actions CI/CD pipeline
 ├── screenshots/ # Deployment proof screenshots
 └── README.md
-
-
----
-
+-----
 ## Infrastructure as Code (Terraform)
-Terraform is used to provision the Kubernetes cluster on AWS.
+-Terraform is used to provision the Kubernetes cluster on AWS.
 
 ### Provisioned Resources
 - Amazon EKS cluster
@@ -49,10 +46,11 @@ Terraform is used to provision the Kubernetes cluster on AWS.
 - IAM roles and policies
 
 ### How to Create the Cluster
-```bash
 cd terraform
 terraform init
 terraform apply
+
+
 Containerization (Docker)
 The application is containerized using Docker.
 
@@ -64,10 +62,9 @@ Optimized Dockerfile
 Simple Nginx-based Hello World application
 
 Build Image Locally
-bash
-Copy code
 docker build -t hello-app .
 docker run -p 8080:80 hello-app
+
 Kubernetes Deployment
 Kubernetes manifests are used to deploy the application to the cluster.
 
@@ -75,11 +72,9 @@ Resources
 Deployment: Runs the application pods
 
 Service: Exposes the application publicly using a LoadBalancer
-
 Deploy to Cluster
-bash
-Copy code
 kubectl apply -f k8s/
+
 CI/CD Pipeline (GitHub Actions)
 A GitHub Actions pipeline automates the entire build and deployment process.
 
@@ -111,20 +106,15 @@ Security Note
 AWS credentials are stored securely using GitHub Actions Secrets.
 To avoid unnecessary cloud costs, credentials are not enabled in the public repository.
 
+
 Live Application URL
-cpp
-Copy code
 http://<EXTERNAL-LOADBALANCER-IP>
 Note: The LoadBalancer IP may change if the service is recreated.
 
 Proof of Deployment
-[Terraform Apply](screenshots/terraform_apply_succes.jpeg)
-
-### Kubernetes Pods
-[Kubectl Pods](screenshots/kubectl_svc_pods.jpeg)
-
-### Kubernetes Service (LoadBalancer)
-[Kubectl Service](screenshots/kubectl_service.jpeg)
+Terraform – EKS Cluster Creation
+Kubernetes Pods
+Kubernetes Service (LoadBalancer)  
 
 Design Choices
 Terraform: Enables reproducible and version-controlled infrastructure
