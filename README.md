@@ -46,52 +46,46 @@ application to the Kubernetes cluster.
 - IAM roles and policies
 
 ### How to Create the Cluster
-cd terraform
-terraform init
-terraform apply
+* cd terraform
+* terraform init
+* terraform apply
 
 
-Containerization (Docker)
+###  Containerization (Docker)
 The application is containerized using Docker.
 
-Features
-Lightweight base image
+### Features
+* Lightweight base image
+* Optimized Dockerfile
+* Simple Nginx-based Hello World application
 
-Optimized Dockerfile
-
-Simple Nginx-based Hello World application
-
-Build Image Locally
+### Build Image Locally
 docker build -t hello-app .
+
 docker run -p 8080:80 hello-app
 
-Kubernetes Deployment
+### Kubernetes Deployment
 Kubernetes manifests are used to deploy the application to the cluster.
 
-Resources
-Deployment: Runs the application pods
+### Resources
+* Deployment: Runs the application pods
+* Service: Exposes the application publicly using a LoadBalancer
 
-Service: Exposes the application publicly using a LoadBalancer
-Deploy to Cluster
+### Deploy to Cluster
 kubectl apply -f k8s/
 
-CI/CD Pipeline (GitHub Actions)
+### CI/CD Pipeline (GitHub Actions)
 A GitHub Actions pipeline automates the entire build and deployment process.
 
-Pipeline Workflow
-Triggered automatically on push to the main branch:
+### Pipeline Workflow
+* Triggered automatically on push to the main branch:
+* Checkout source code
+* Configure AWS credentials (via GitHub Secrets)
+* Build Docker image
+* Push image to Amazon ECR
+* Deploy updated application to EKS using kubectl
 
-Checkout source code
-
-Configure AWS credentials (via GitHub Secrets)
-
-Build Docker image
-
-Push image to Amazon ECR
-
-Deploy updated application to EKS using kubectl
-
-CI/CD Pipeline Execution Note
+### CI/CD Pipeline Execution Note
 The GitHub Actions workflow is fully configured to build, push, and deploy
 the application to Amazon EKS.
 
@@ -102,39 +96,34 @@ Once valid AWS credentials are provided via GitHub Actions Secrets, the
 pipeline will execute successfully and automatically deploy the application
 to the Kubernetes cluster.
 
-Security Note
+### Security Note
 AWS credentials are stored securely using GitHub Actions Secrets.
 To avoid unnecessary cloud costs, credentials are not enabled in the public repository.
 
 
-Live Application URL
+### Live Application URL
 http://<EXTERNAL-LOADBALANCER-IP>
+
 Note: The LoadBalancer IP may change if the service is recreated.
 
-Proof of Deployment
-Terraform – EKS Cluster Creation
-Kubernetes Pods
-Kubernetes Service (LoadBalancer)  
+### Proof of Deployment
+* Terraform – EKS Cluster Creation
+* Kubernetes Pods
+* Kubernetes Service (LoadBalancer)  
 
-Design Choices
-Terraform: Enables reproducible and version-controlled infrastructure
+### Design Choices
+* Terraform: Enables reproducible and version-controlled infrastructure
+* GitHub Actions: Lightweight and tightly integrated CI/CD solution
+* Amazon EKS: Fully managed Kubernetes service reduces operational overhead
+* LoadBalancer Service: Simple and cloud-native way to expose the application publicly
 
-GitHub Actions: Lightweight and tightly integrated CI/CD solution
+### Future Improvements
+* Use Helm for deployment templating
+* Add monitoring with Prometheus and Grafana
+* Integrate container image security scanning
+* Implement Ingress instead of LoadBalancer
 
-Amazon EKS: Fully managed Kubernetes service reduces operational overhead
-
-LoadBalancer Service: Simple and cloud-native way to expose the application publicly
-
-Future Improvements
-Use Helm for deployment templating
-
-Add monitoring with Prometheus and Grafana
-
-Integrate container image security scanning
-
-Implement Ingress instead of LoadBalancer
-
-Conclusion
+### Conclusion
 This project demonstrates a complete, automated Kubernetes deployment pipeline
 using industry-standard DevOps tools and best practices. The setup is
 reproducible, scalable, and production-ready with minimal enhancements.
