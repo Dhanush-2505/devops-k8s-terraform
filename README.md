@@ -1,24 +1,28 @@
 # Automated Kubernetes Deployment using Terraform & GitHub Actions
 
 ## Overview
-This project demonstrates an end-to-end DevOps workflow to automatically build, containerize, and deploy a simple **"Hello World"** web application to a Kubernetes cluster using modern DevOps practices.
+This project demonstrates an end-to-end DevOps workflow to automatically build,
+containerize, and deploy a simple "Hello World" web application to a Kubernetes
+cluster using modern DevOps practices.
 
 The solution uses:
-- **Terraform** for Infrastructure as Code (IaC)
-- **Docker** for containerization
-- **Kubernetes** for orchestration
-- **GitHub Actions** for CI/CD automation
-- **AWS EKS** and **Amazon ECR** as the cloud platform
+- Terraform for Infrastructure as Code (IaC)
+- Docker for containerization
+- Kubernetes for orchestration
+- GitHub Actions for CI/CD automation
+- AWS EKS and Amazon ECR as the cloud platform
 
-Whenever code is pushed to the `main` branch, the CI/CD pipeline automatically builds the Docker image, pushes it to the container registry, and deploys the application to the Kubernetes cluster.
+Whenever code is pushed to the `main` branch, the CI/CD pipeline automatically
+builds the Docker image, pushes it to the container registry, and deploys the
+application to the Kubernetes cluster.
 
 ---
 
 ## Architecture
-- **Cloud Provider**: AWS  
-- **Kubernetes**: Amazon EKS (Managed Cluster)  
-- **Container Registry**: Amazon ECR  
-- **CI/CD Tool**: GitHub Actions  
+- **Cloud Provider:** AWS  
+- **Kubernetes:** Amazon EKS (Managed Cluster)  
+- **Container Registry:** Amazon ECR  
+- **CI/CD Tool:** GitHub Actions  
 
 ---
 
@@ -29,10 +33,9 @@ Whenever code is pushed to the `main` branch, the CI/CD pipeline automatically b
 ├── k8s/ # Kubernetes manifests (Deployment, Service)
 ├── terraform/ # Terraform IaC for EKS cluster
 ├── .github/workflows/ # GitHub Actions CI/CD pipeline
+├── screenshots/ # Deployment proof screenshots
 └── README.md
 
-yaml
-Copy code
 
 ---
 
@@ -93,36 +96,7 @@ Push image to Amazon ECR
 
 Deploy updated application to EKS using kubectl
 
-Security Note
-AWS credentials are stored securely using GitHub Actions Secrets.
-To avoid unnecessary cloud costs, credentials are not enabled in the public repository.
-
-Live Application URL
-When deployed, the application is accessible via the Kubernetes LoadBalancer URL:
-
-cpp
-Copy code
-http://<EXTERNAL-LOADBALANCER-IP>
-Design Choices
-Terraform: Enables reproducible and version-controlled infrastructure
-
-GitHub Actions: Lightweight and tightly integrated CI/CD solution
-
-Amazon EKS: Fully managed Kubernetes service reduces operational overhead
-
-LoadBalancer Service: Simple and cloud-native way to expose the application publicly
-
-Future Improvements (Optional)
-Use Helm for deployment templating
-
-Add monitoring with Prometheus and Grafana
-
-Integrate container image security scanning
-
-Implement Ingress instead of LoadBalancer
-**
-### CI/CD Pipeline Execution Note**
-
+CI/CD Pipeline Execution Note
 The GitHub Actions workflow is fully configured to build, push, and deploy
 the application to Amazon EKS.
 
@@ -133,21 +107,44 @@ Once valid AWS credentials are provided via GitHub Actions Secrets, the
 pipeline will execute successfully and automatically deploy the application
 to the Kubernetes cluster.
 
-## Proof of Deployment
+Security Note
+AWS credentials are stored securely using GitHub Actions Secrets.
+To avoid unnecessary cloud costs, credentials are not enabled in the public repository.
 
-### Terraform – EKS Cluster Creation
-![Terraform Apply](screenshots/terraform_apply_succes.jpeg)
+Live Application URL
+cpp
+Copy code
+http://<EXTERNAL-LOADBALANCER-IP>
+Note: The LoadBalancer IP may change if the service is recreated.
+
+Proof of Deployment
+[Terraform Apply](screenshots/terraform_apply_succes.jpeg)
 
 ### Kubernetes Pods
-![Kubectl Pods](screenshots/kubectl_svc_pods.jpeg)
+[Kubectl Pods](screenshots/kubectl_svc_pods.jpeg)
 
 ### Kubernetes Service (LoadBalancer)
-![Kubectl Service](screenshots/kubectl_service.jpeg)
+[Kubectl Service](screenshots/kubectl_service.jpeg)
 
-### Live Application
-![Application Running](screenshots/app_browser.jpeg)
+Design Choices
+Terraform: Enables reproducible and version-controlled infrastructure
 
+GitHub Actions: Lightweight and tightly integrated CI/CD solution
 
+Amazon EKS: Fully managed Kubernetes service reduces operational overhead
+
+LoadBalancer Service: Simple and cloud-native way to expose the application publicly
+
+Future Improvements
+Use Helm for deployment templating
+
+Add monitoring with Prometheus and Grafana
+
+Integrate container image security scanning
+
+Implement Ingress instead of LoadBalancer
 
 Conclusion
-This project demonstrates a complete, automated Kubernetes deployment pipeline using industry-standard DevOps tools and practices. The setup is reproducible, scalable, and suitable for production environments with minimal modifications.
+This project demonstrates a complete, automated Kubernetes deployment pipeline
+using industry-standard DevOps tools and best practices. The setup is
+reproducible, scalable, and production-ready with minimal enhancements.
